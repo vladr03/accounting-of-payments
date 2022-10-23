@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Fully Paid Opportunities">
+        <lightning-accordion allow-multiple-sections-open>
+            <template if:true={fullyPaidOpportunities}>
+                <template for:each={fullyPaidOpportunities} for:item="opp">
+                    <lightning-accordion-section key={opp.Id} label={opp.Name}>
+                        <div style="margin-bottom: 5px;">
+                            Invoice Number: <span>{opp.Invoice_Number__c}</span>
+                        </div>
+                        <template for:each={opp.Payments__r} for:item="payment">
+                            <div key={payment.Id}>
+                                <div style="margin-bottom: 5px;" class="slds-grid slds-wrap slds-border_bottom">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        Amount: <span>{payment.Amount__c}</span>
+                                        <p>Payment Time: <span>
+                                                <lightning-formatted-date-time value={payment.Payment_Time__c}
+                                                    year="numeric" month="numeric" day="numeric" hour="2-digit"
+                                                    minute="2-digit" time-zone-name="short">
+                                                </lightning-formatted-date-time>
+                                            </span></p>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        Name: <span>{payment.FirstName__c} {payment.LastName__c}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </lightning-accordion-section>
+                </template>
+            </template>
+        </lightning-accordion>
+    </lightning-card>
+</template>
